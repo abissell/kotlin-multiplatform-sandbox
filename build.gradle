@@ -1,0 +1,15 @@
+buildscript {
+    apply from: 'versions.gradle'
+
+    repositories {
+        maven { url "https://dl.bintray.com/kotlin/kotlin-dev" }
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: "kotlin"
