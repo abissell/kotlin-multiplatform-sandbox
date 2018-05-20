@@ -1,0 +1,36 @@
+apply plugin: 'kotlin2js'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
+}
+
+dependencies {
+    compile project(':multiplatform-sandbox-js')
+}
+
+sourceSets {
+    main.resources.srcDirs += "resources"
+    main.kotlin.srcDirs += "src"
+    test.kotlin.srcDirs += "test"
+}
+
+task assembleWeb(type: Sync) {
+    configurations.compile.each { File file ->
+        from(zipTree(file.absolutePath), {
+            includeEmptyDirs = false
+            include { fileTreeElement ->
+                def path = fileTreeElement.path
+                path.endsWith(".js") && (path.startsWith("META-INF/resources/") || 
+                    !path.startsWith("META-INF/"))
+            }
+        })
+    }
+    from compileKotlin2Js.destinationDir
+    into "${projectDir}/web"
+
+    dependsOn classes
+}
+
+assemble.dependsOn assembleWeb

@@ -1,4 +1,6 @@
 rootProject.name = 'multiplatform-sandbox'
-include ':multiplatform-sandbox-jvm'
-include ':multiplatform-sandbox-js'
 include ':multiplatform-sandbox-common'
+include ':multiplatform-sandbox-jvm'
+include ':main-jvm'
+include ':multiplatform-sandbox-js'
+include ':main-js'
